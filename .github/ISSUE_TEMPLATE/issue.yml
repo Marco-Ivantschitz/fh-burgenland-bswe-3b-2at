@@ -4,9 +4,8 @@ description: File any type of issue.
 title: "[Issue] "
 labels:
   - triage
-  - help wanted
 assignees:
-  - muhlba91
+  - Marco-Ivantschitz
 body:
   - type: markdown
     attributes:
