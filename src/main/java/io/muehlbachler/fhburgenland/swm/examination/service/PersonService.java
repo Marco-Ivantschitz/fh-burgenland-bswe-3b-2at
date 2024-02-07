@@ -6,15 +6,49 @@ import java.util.Optional;
 import io.muehlbachler.fhburgenland.swm.examination.model.Note;
 import io.muehlbachler.fhburgenland.swm.examination.model.Person;
 
+/**
+ * Service interface for managing persons.
+ */
 public interface PersonService {
-    public List<Person> getAll();
 
-    public Optional<Person> get(String id);
+    /**
+     * Retrieves a list of all persons.
+     *
+     * @return A list of all persons.
+     */
+    List<Person> getAll();
 
-    public Person create(Person person);
+    /**
+     * Retrieves a person by their ID.
+     *
+     * @param id The ID of the person to retrieve.
+     * @return Optional containing the retrieved person, if found; otherwise, an empty Optional.
+     */
+    Optional<Person> get(String id);
 
-    // if any name (first or last) is empty, we only search for the other one
-    public List<Person> findByName(String firstName, String lastName);
+    /**
+     * Creates a new person.
+     *
+     * @param person The person object to create.
+     * @return The created person object.
+     */
+    Person create(Person person);
 
-    public Optional<Note> createNote(String personId, Note note);
+    /**
+     * Finds persons by first and last name.
+     *
+     * @param firstName The first name to search for.
+     * @param lastName The last name to search for.
+     * @return A list of persons matching the provided first and last names. If any of the names (first or last) is empty, only the other name will be used for searching.
+     */
+    List<Person> findByName(String firstName, String lastName);
+
+    /**
+     * Creates a note for a person.
+     *
+     * @param personId The ID of the person to create the note for.
+     * @param note The note object to create.
+     * @return Optional containing the created note, if successful; otherwise, an empty Optional.
+     */
+    Optional<Note> createNote(String personId, Note note);
 }
