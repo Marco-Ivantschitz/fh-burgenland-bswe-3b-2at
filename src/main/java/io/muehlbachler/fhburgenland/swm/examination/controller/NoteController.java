@@ -6,30 +6,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.muehlbachler.fhburgenland.swm.examination.model.Note;
-import io.muehlbachler.fhburgenland.swm.examination.model.Person;
 import io.muehlbachler.fhburgenland.swm.examination.service.NoteService;
-import io.muehlbachler.fhburgenland.swm.examination.service.PersonService;
 
+/**
+ * Controller class for managing notes.
+ */
 @RestController
-@RequestMapping("note")
 public class NoteController {
+
     @Autowired
     private NoteService noteService;
 
-    @GetMapping("/{id}")
+    /**
+     * Retrieves a note by its ID.
+     *
+     * @param id The ID of the note to retrieve.
+     * @return ResponseEntity containing the retrieved note, if found; otherwise, returns ResponseEntity with no content.
+     * @throws IllegalArgumentException if the provided ID is null or empty.
+     */
+    @GetMapping("/note/{id}")
     public ResponseEntity<Note> get(@PathVariable String id) {
+        if (id == null || id.isEmpty()) {
+            throw new IllegalArgumentException("ID cannot be null or empty");
+        }
         return ResponseEntity.of(noteService.get(id));
     }
 
-    @GetMapping("/query")
+    /**
+     * Queries notes by content.
+     *
+     * @param query The query string to search for in the notes' content.
+     * @return A list of notes matching the query. If no matching notes are found, an empty list is returned.
+     * @throws IllegalArgumentException if the provided query is null.
+     */
+    @GetMapping("/note/query")
     public List<Note> query(@RequestParam("query") String query) {
+        if (query == null) {
+            throw new IllegalArgumentException("Query cannot be null");
+        }
         return noteService.queryByContent(query);
     }
 }
