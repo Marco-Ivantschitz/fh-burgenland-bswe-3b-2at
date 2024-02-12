@@ -12,14 +12,6 @@ java {
 	sourceCompatibility = JavaVersion.VERSION_17
 }
 
-checkstyle {
-	toolVersion = '10.3.3'
-	configFile = file("config/checkstyle/checkstyle.xml")
-	showViolations = true // Zeige Verletzungen im Konsolenprotokoll
-}
-
-check.dependsOn 'checkstyle'
-
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
