@@ -69,11 +69,12 @@ public class PersonServiceImpl implements PersonService {
     }
 
     /**
-     * Finds persons by first and last name.
+     * Finds persons by first and last name. If either first name or last name is empty,
+     * searches will be performed based on the non-empty name.
      *
-     * @param firstName The first name to search for.
-     * @param lastName The last name to search for.
-     * @return A list of persons matching the provided first and last names. If any of the names (first or last) is empty, only the other name will be used for searching.
+     * @param firstName The first name to search for. Can be empty.
+     * @param lastName The last name to search for. Can be empty.
+     * @return A list of persons matching the provided first and last names, or an empty list if no matches are found.
      */
     @Override
     public List<Person> findByName(String firstName, String lastName) {
