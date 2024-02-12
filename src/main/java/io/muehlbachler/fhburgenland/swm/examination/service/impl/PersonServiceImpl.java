@@ -1,5 +1,6 @@
 package io.muehlbachler.fhburgenland.swm.examination.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -76,12 +77,14 @@ public class PersonServiceImpl implements PersonService {
      */
     @Override
     public List<Person> findByName(String firstName, String lastName) {
-        if (firstName.isEmpty() && !lastName.isEmpty()) {
-            return personRepository.findByFirstName(lastName);
-        } else if (lastName.isEmpty() && !firstName.isEmpty()) {
-            return personRepository.findByLastName(firstName);
+        if (!firstName.isEmpty() && !lastName.isEmpty()) {
+            return personRepository.findByFirstNameAndLastName(firstName, lastName);
+        } else if (!lastName.isEmpty()) {
+            return personRepository.findByLastName(lastName);
+        } else if (!firstName.isEmpty()) {
+            return personRepository.findByFirstName(firstName);
         }
-        return Lists.newArrayList();
+        return Collections.emptyList();
     }
 
     /**
