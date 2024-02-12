@@ -14,6 +14,7 @@ java {
 
 checkstyle {
 	toolVersion = '10.3.3'
+	configFile = file("config/checkstyle/checkstyle.xml")
 	configFile = file("C:/FH/3.Semester/Softwaremanagement II/Mühlbachler-Pietrzykowski/fh-burgenland-bswe-3b-2at/config/checkstyle/checkstyle.xml") // Pfad zur checkstyle-Konfigurationsdatei
 	showViolations = true // Zeige Verletzungen im Konsolenprotokoll
 }
@@ -44,10 +45,10 @@ dependencies {
 }
 
 tasks.named('test') {
-    useJUnitPlatform()
+	useJUnitPlatform()
 
-    testLogging {
+	testLogging {
 		events 'PASSED', 'SKIPPED', 'FAILED'
-        exceptionFormat 'full'
+		exceptionFormat 'full'
 	}
 }
