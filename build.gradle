@@ -9,17 +9,8 @@ group = 'io.muehlbachler.fhburgenland.swm'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_17
+	sourceCompatibility = '17'
 }
-
-checkstyle {
-	toolVersion = '10.3.3'
-	configFile = file("config/checkstyle/checkstyle.xml")
-	configFile = file("C:/FH/3.Semester/Softwaremanagement II/Mühlbachler-Pietrzykowski/fh-burgenland-bswe-3b-2at/config/checkstyle/checkstyle.xml") // Pfad zur checkstyle-Konfigurationsdatei
-	showViolations = true // Zeige Verletzungen im Konsolenprotokoll
-}
-
-check.dependsOn 'checkstyle'
 
 configurations {
 	compileOnly {
