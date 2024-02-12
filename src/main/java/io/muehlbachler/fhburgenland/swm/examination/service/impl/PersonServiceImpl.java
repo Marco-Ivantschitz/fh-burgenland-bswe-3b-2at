@@ -1,5 +1,6 @@
 package io.muehlbachler.fhburgenland.swm.examination.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,20 +69,23 @@ public class PersonServiceImpl implements PersonService {
     }
 
     /**
-     * Finds persons by first and last name.
+     * Finds persons by first and last name. If either first name or last name is empty,
+     * searches will be performed based on the non-empty name.
      *
-     * @param firstName The first name to search for.
-     * @param lastName The last name to search for.
-     * @return A list of persons matching the provided first and last names. If any of the names (first or last) is empty, only the other name will be used for searching.
+     * @param firstName The first name to search for. Can be empty.
+     * @param lastName The last name to search for. Can be empty.
+     * @return A list of persons matching the provided first and last names, or an empty list if no matches are found.
      */
     @Override
     public List<Person> findByName(String firstName, String lastName) {
-        if (firstName.isEmpty() && !lastName.isEmpty()) {
-            return personRepository.findByFirstName(lastName);
-        } else if (lastName.isEmpty() && !firstName.isEmpty()) {
-            return personRepository.findByLastName(firstName);
+        if (!firstName.isEmpty() && !lastName.isEmpty()) {
+            return personRepository.findByFirstNameAndLastName(firstName, lastName);
+        } else if (!lastName.isEmpty()) {
+            return personRepository.findByLastName(lastName);
+        } else if (!firstName.isEmpty()) {
+            return personRepository.findByFirstName(firstName);
         }
-        return Lists.newArrayList();
+        return Collections.emptyList();
     }
 
     /**
