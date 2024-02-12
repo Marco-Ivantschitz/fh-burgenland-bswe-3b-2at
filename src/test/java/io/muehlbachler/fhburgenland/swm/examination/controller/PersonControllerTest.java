@@ -38,6 +38,13 @@ public class PersonControllerTest {
     @Test
     void testQueryPersons() {
         List<Person> persons = personController.query("John", "Doe");
-        assertTrue(persons.isEmpty());
+        assertFalse(persons.isEmpty());
+    }
+
+    @Test
+    void testListAllPersons() {
+        List<Person> persons = personController.list();
+        assertNotNull(persons, "List of persons should not be null");
+        assertFalse(persons.isEmpty(), "List of persons should not be empty");
     }
 }
