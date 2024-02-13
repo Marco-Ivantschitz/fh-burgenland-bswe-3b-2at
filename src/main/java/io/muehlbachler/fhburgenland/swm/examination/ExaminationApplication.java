@@ -5,6 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+/**
+ * The main class for the Examination Application.
+ */
+
 @SpringBootApplication
 @EntityScan("io.muehlbachler.fhburgenland.swm.examination.model")
 @EnableJpaRepositories("io.muehlbachler.fhburgenland.swm.examination.repository")
