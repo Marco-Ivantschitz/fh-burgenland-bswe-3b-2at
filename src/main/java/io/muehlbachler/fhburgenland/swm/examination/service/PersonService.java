@@ -32,15 +32,17 @@ public interface PersonService {
      * @param person The person object to create.
      * @return The created person object.
      */
+
     Person create(Person person);
 
     /**
      * Finds persons by first and last name.
      *
      * @param firstName The first name to search for.
-     * @param lastName The last name to search for.
-     * @return A list of persons matching the provided first and last names. If any of the names (first or last) is empty, only the other name will be used for searching.
+     * @param lastName  The last name to search for.
+     * @return If any of the names is empty, only the other name will be used for searching.
      */
+
     List<Person> findByName(String firstName, String lastName);
 
     /**

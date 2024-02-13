@@ -39,7 +39,7 @@ public class PersonController {
      * Retrieves a person by their ID.
      *
      * @param id The ID of the person to retrieve.
-     * @return ResponseEntity containing the retrieved person, if found; otherwise, returns ResponseEntity with no content.
+     * @return The retrieved person, if found; otherwise, returns ResponseEntity with no content.
      * @throws IllegalArgumentException if the provided ID is null or empty.
      */
     @GetMapping("/{id}")
@@ -70,7 +70,8 @@ public class PersonController {
      * @throws IllegalArgumentException if the provided first name or last name is null.
      */
     @GetMapping("/query")
-    public List<Person> query(@RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName) {
+    public List<Person> query(@RequestParam("firstName") String firstName,
+                              @RequestParam("lastName") String lastName) {
         if (firstName == null || lastName == null) {
             throw new IllegalArgumentException("First name and last name cannot be null");
         }
@@ -82,7 +83,7 @@ public class PersonController {
      *
      * @param id The ID of the person to create the note for.
      * @param note The note object to create.
-     * @return ResponseEntity containing the created note, if successful; otherwise, returns ResponseEntity with no content.
+     * @return The created note, if successful; otherwise, returns ResponseEntity with no content.
      * @throws IllegalArgumentException if the provided ID is null or empty.
      */
     @PostMapping("/{id}/note")

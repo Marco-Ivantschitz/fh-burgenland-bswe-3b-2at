@@ -17,16 +17,26 @@ import lombok.AllArgsConstructor;
 
 import java.util.Objects;
 
+/**
+ * Represents a note entity.
+ */
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 public class Note {
+
+    /**
+     * The unique ID of the note.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Setter(AccessLevel.NONE)
     private String id;
+    /**
+     * The person associated with this note.
+     */
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "person_id")

@@ -1,9 +1,6 @@
 package io.muehlbachler.fhburgenland.swm.examination.service.impl;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
 
 import java.util.Optional;
 
@@ -16,11 +13,23 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.never;
+
 import io.muehlbachler.fhburgenland.swm.examination.model.Person;
 import io.muehlbachler.fhburgenland.swm.examination.repository.PersonRepository;
 import io.muehlbachler.fhburgenland.swm.examination.service.NoteService;
 import io.muehlbachler.fhburgenland.swm.examination.service.PersonService;
 
+/**
+ * Unit tests for the {@link PersonServiceImpl} class.
+ */
 @ExtendWith(MockitoExtension.class)
 public class PersonServiceImplTest {
     @Mock
@@ -30,17 +39,26 @@ public class PersonServiceImplTest {
 
     private PersonService personService;
 
+    /**
+     * Sets up the test environment before each test method.
+     */
     @BeforeEach
     void setUp() {
         personService = new PersonServiceImpl(personRepository, noteService);
     }
 
+    /**
+     * There are no more interactions with repositories or services after each test method.
+     */
     @AfterEach
     void tearDown() {
         Mockito.verifyNoMoreInteractions(personRepository);
         Mockito.verifyNoMoreInteractions(noteService);
     }
 
+    /**
+     * Test case for retrieving a person by ID.
+     */
     @Test
     void testGetById() {
         Mockito.when(personRepository.findById("1"))
@@ -54,6 +72,9 @@ public class PersonServiceImplTest {
         verify(personRepository, times(1)).findById("1");
     }
 
+    /**
+     * Test case for successfully retrieving a person by ID.
+     */
     @Test
     void testGetByIdSuccess() {
         Mockito.when(personRepository.findById("1"))
@@ -68,6 +89,9 @@ public class PersonServiceImplTest {
         verify(personRepository, times(1)).findById("1");
     }
 
+    /**
+     * Test case for retrieving a person by ID when not found.
+     */
     @Test
     void testGetByIdNotFound() {
         when(personRepository.findById("2")).thenReturn(Optional.empty());
@@ -79,6 +103,9 @@ public class PersonServiceImplTest {
         verify(personRepository, times(1)).findById("2");
     }
 
+    /**
+     * Test case for successfully creating a new person.
+     */
     @Test
     void testCreateSuccess() {
         Person newPerson = new Person("3", "Alice", "Smith", Lists.newArrayList());
@@ -92,6 +119,9 @@ public class PersonServiceImplTest {
         verify(personRepository, times(1)).save(newPerson);
     }
 
+    /**
+     * Test case for creating a new person with null input.
+     */
     @Test
     void testCreateNullPerson() {
         assertThrows(IllegalArgumentException.class, () -> personService.create(null));
