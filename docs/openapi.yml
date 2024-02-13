@@ -1,0 +1,121 @@
+openapi: 3.1.0
+info:
+  title: Person API
+  version: 1.0.0
+paths:
+  /person/:
+    get:
+      summary: "GET person/"
+      operationId: "list"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Person"
+    post:
+      summary: "POST person/"
+      operationId: "create"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Person"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Person"
+  /person/{id}:
+    get:
+      summary: "GET person/{id}"
+      operationId: "get"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Person"
+  /person/{id}/note:
+    post:
+      summary: "POST person/{id}/note"
+      operationId: "createNote"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "string"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Note"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/Note"
+  /person/query:
+    get:
+      summary: "GET person/query"
+      operationId: "query"
+      parameters:
+        - name: "firstName"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+        - name: "lastName"
+          in: "query"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Person"
+components:
+  schemas:
+    Person:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for a person.
+        firstName:
+          type: string
+          description: The first name of the person.
+        lastName:
+          type: string
+          description: The last name of the person.
+    Note:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The unique identifier for a note.
+        content:
+          type: string
+          description: The content of the note.
