@@ -25,7 +25,7 @@ public class NoteController {
      * Retrieves a note by its ID.
      *
      * @param id The ID of the note to retrieve.
-     * @return ResponseEntity containing the retrieved note, if found; otherwise, returns ResponseEntity with no content.
+     * @return The retrieved note, if found; otherwise, returns ResponseEntity with no content.
      * @throws IllegalArgumentException if the provided ID is null or empty.
      */
     @GetMapping("/note/{id}")
@@ -40,7 +40,7 @@ public class NoteController {
      * Queries notes by content.
      *
      * @param query The query string to search for in the notes' content.
-     * @return A list of notes matching the query. If no matching notes are found, an empty list is returned.
+     * @return If no matching notes are found, an empty list is returned.
      * @throws IllegalArgumentException if the provided query is null.
      */
     @GetMapping("/note/query")
