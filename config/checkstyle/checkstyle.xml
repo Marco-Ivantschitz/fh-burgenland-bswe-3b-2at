@@ -45,8 +45,8 @@
   </module>
 
   <module name="TreeWalker">
-    <module name="OverrideAnnotation"/>
-    <module name="ClassMemberImpliedModifier" />
+    <module name="MissingOverride"/>
+    <module name="ClassMemberImpliedModifier"/>
     <module name="InterfaceMemberImpliedModifier"/>
     <module name="ModifierOrder"/>
     <module name="RedundantModifier"/>
