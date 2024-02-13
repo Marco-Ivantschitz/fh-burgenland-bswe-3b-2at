@@ -30,7 +30,7 @@ public interface NoteService {
      * Queries notes by content.
      *
      * @param query The query string to search for in the notes' content.
-     * @return A list of notes matching the query. If no matching notes are found, an empty list is returned.
+     * @return If no matching notes are found, an empty list is returned.
      */
     List<Note> queryByContent(String query);
 }

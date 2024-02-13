@@ -17,10 +17,19 @@ import io.muehlbachler.fhburgenland.swm.examination.service.PersonService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+
+/**
+ * Implementation of the PersonService interface.
+ */
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Service
 public class PersonServiceImpl implements PersonService {
+
+    /**
+     * The repository for accessing person data.
+     */
 
     @Autowired
     private PersonRepository personRepository;
@@ -42,7 +51,7 @@ public class PersonServiceImpl implements PersonService {
      * Retrieves a person by their ID.
      *
      * @param id The ID of the person to retrieve.
-     * @return Optional containing the retrieved person, if found; otherwise, an empty Optional.
+     * @return Optional containing the retrieved person if found,otherwise an empty Optional.
      * @throws IllegalArgumentException if the provided ID is null.
      */
     @Override
@@ -74,7 +83,7 @@ public class PersonServiceImpl implements PersonService {
      *
      * @param firstName The first name to search for. Can be empty.
      * @param lastName The last name to search for. Can be empty.
-     * @return A list of persons matching the provided first and last names, or an empty list if no matches are found.
+     * @return The provided first and last names,or an empty list if no matches are found.
      */
     @Override
     public List<Person> findByName(String firstName, String lastName) {
@@ -92,7 +101,7 @@ public class PersonServiceImpl implements PersonService {
      * Creates a note for a person.
      *
      * @param personId The ID of the person to create the note for.
-     * @param note The note object to create.
+     * @param note     The note object to create.
      * @return Optional containing the created note, if successful; otherwise, an empty Optional.
      * @throws IllegalArgumentException if the provided person ID or note is null.
      */
@@ -101,9 +110,12 @@ public class PersonServiceImpl implements PersonService {
         if (personId == null || note == null) {
             throw new IllegalArgumentException("Person ID and note cannot be null");
         }
-        return get(personId).map((Person person) -> {
-            note.setPerson(person);
-            return noteService.create(note);
-        });
+        return get(personId).map(this::createNoteForPerson);
+    }
+
+    private Note createNoteForPerson(Person person) {
+        Note note = new Note();
+        note.setPerson(person);
+        return noteService.create(note);
     }
 }
