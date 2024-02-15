@@ -87,11 +87,11 @@ jobs:
    steps:
      - uses: actions/checkout@v4
      - name: Build Docker image
-       run: docker buildx build -t ghcr.io/marco-ivantschitz/test/my-container:latest .
+       run: docker buildx build -t ghcr.io/marco-ivantschitz/fh-burgenland-bswe-3b-2at/my-container:latest .
      - name: Push Docker image to GHCR
        run: |
          echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-         docker push ghcr.io/marco-ivantschitz/test/my-container:latest
+         docker push ghcr.io/marco-ivantschitz/fh-burgenland-bswe-3b-2at/my-container:latest
 
 # Enforce branch protection rules
   enable-branch-protection:
