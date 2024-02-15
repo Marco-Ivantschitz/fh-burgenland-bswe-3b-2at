@@ -4,9 +4,8 @@ WORKDIR /
 
 COPY . .
 
-RUN chmod +x ./gradlew
-
-RUN ./gradlew build --no-daemon
+RUN chmod +x ./gradlew && \
+    ./gradlew build --no-daemon
 
 FROM openjdk:21
 
