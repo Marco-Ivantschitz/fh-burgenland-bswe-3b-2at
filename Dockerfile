@@ -1,21 +1,14 @@
-FROM openjdk:21 as builder
+# Verwende das offizielle OpenJDK 21-Basisimage
+FROM adoptopenjdk:21-jdk-hotspot
 
-WORKDIR /
-
-COPY . .
-
-RUN sh -c 'chmod +x ./gradlew && ./gradlew build --no-daemon'
-
-FROM openjdk:21
-
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends findutils \
-    && rm -rf /var/lib/apt/lists/*
-
+# Setze das Arbeitsverzeichnis im Container
 WORKDIR /app
 
-COPY --from=builder build/libs/*.jar /app/app.jar
+# Kopiere das Build-Artefakt aus dem vorherigen Schritt in den Container
+COPY build/libs/*.jar app.jar
 
+# Exponiere den Port 8080, auf dem die Anwendung läuft
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# Befehl zum Ausführen der Anwendung, wenn der Container gestartet wird
+CMD ["java", "-jar", "app.jar"]
