@@ -1,17 +1,9 @@
-FROM openjdk:21 as build
- 
+FROM adoptopenjdk:11-jre-hotspot
+
 WORKDIR /app
- 
-COPY / /app
- 
-RUN ./gradlew bootJar
- 
-FROM openjdk:21 as run
- 
-WORKDIR /app
- 
-COPY --from=build /app/build/libs/*.jar /app/app.jar
- 
+
+COPY build/libs/*.jar /app/application.jar
+
 EXPOSE 8080
- 
-ENTRYPOINT ["java", "-jar", "app.jar"]
+
+CMD ["java", "-jar", "build/libs/examination-0.0.1-SNAPSHOT.jar"]
