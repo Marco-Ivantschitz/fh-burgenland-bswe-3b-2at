@@ -1,5 +1,5 @@
 # Verwende das offizielle OpenJDK 21-Basisimage
-FROM adoptopenjdk:21-jdk-hotspot
+FROM openjdk:21-jdk
 
 # Setze das Arbeitsverzeichnis im Container
 WORKDIR /app
